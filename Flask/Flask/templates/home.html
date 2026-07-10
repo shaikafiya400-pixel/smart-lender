@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap');
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
+            background-color: #FAF8F3;
+            color: #223028;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        @keyframes drift1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(40px, 30px) scale(1.1); }
+        }
+
+        @keyframes drift2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-30px, -20px) scale(1.05); }
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.35;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .blob-1 {
+            width: 320px;
+            height: 320px;
+            background: #cddba0;
+            top: 40px;
+            left: -100px;
+            animation: drift1 14s ease-in-out infinite;
+        }
+
+        .blob-2 {
+            width: 260px;
+            height: 260px;
+            background: #a9c46f;
+            top: 200px;
+            right: -80px;
+            animation: drift2 11s ease-in-out infinite;
+        }
+
+        .banner, .hero, .stats, .section-title, .steps {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ---------- NAVBAR ---------- */
+        .banner {
+            background-color: #6b8e23;
+            color: white;
+            padding: 34px 32px;
+            text-align: center;
+        }
+
+        .banner-text h2 {
+            margin: 0;
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            font-size: 32px;
+        }
+
+        .banner-text span {
+            display: block;
+            font-size: 13px;
+            color: #eaf1d8;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+
+        /* ---------- HERO ---------- */
+        .hero {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 64px 24px 40px;
+            text-align: center;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #6b8e23;
+            font-weight: 600;
+            border: 1px solid #cddba0;
+            background: #f1f6e3;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 22px;
+            animation: fadeUp 0.6s ease both, pulse 2.6s ease-in-out infinite 0.6s;
+        }
+
+        .hero h1 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 42px;
+            line-height: 1.15;
+            margin: 0 0 18px;
+            color: #1c2b20;
+            animation: fadeUp 0.6s ease both 0.1s;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: #6b8e23;
+        }
+
+        .hero p {
+            font-size: 16.5px;
+            line-height: 1.65;
+            color: #4a5750;
+            max-width: 620px;
+            margin: 0 auto 34px;
+            animation: fadeUp 0.6s ease both 0.2s;
+        }
+
+        .predict-btn {
+            display: inline-block;
+            padding: 14px 34px;
+            background-color: #223028;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            transition: transform 0.15s ease, background-color 0.15s ease;
+            animation: fadeUp 0.6s ease both 0.3s;
+        }
+
+        .predict-btn:hover {
+            background-color: #6b8e23;
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 24px rgba(107, 142, 35, 0.35);
+        }
+
+        /* ---------- STAT STRIP ---------- */
+        .stats {
+            max-width: 720px;
+            margin: 8px auto 56px;
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            border-top: 1px solid #e3ddca;
+            border-bottom: 1px solid #e3ddca;
+        }
+
+        .stat {
+            flex: 1;
+            text-align: center;
+            padding: 22px 12px;
+            border-right: 1px solid #e3ddca;
+        }
+
+        .stat:last-child { border-right: none; }
+
+        .stat .num {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 28px;
+            color: #223028;
+            display: block;
+        }
+
+        .stat .label {
+            font-size: 12px;
+            color: #7a8578;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* ---------- HOW IT WORKS ---------- */
+        .section-title {
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #7a8578;
+            font-weight: 600;
+            margin-top: 20px;
+            margin-bottom: 34px;
+        }
+
+        .steps {
+            max-width: 920px;
+            margin: 0 auto 60px;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .step-card {
+            background: #ffffff;
+            border: 1px solid #ece7d9;
+            border-radius: 8px;
+            padding: 26px 22px;
+            box-shadow: 0 2px 6px rgba(34, 48, 40, 0.04);
+            opacity: 0;
+            transform: translateY(24px);
+            transition: transform 0.6s ease, box-shadow 0.25s ease, opacity 0.6s ease;
+        }
+
+        .step-card.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 28px rgba(34, 48, 40, 0.1);
+        }
+
+        .step-num {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 22px;
+            color: #6b8e23;
+            margin-bottom: 10px;
+        }
+
+        .step-card h3 {
+            font-size: 15.5px;
+            margin: 0 0 8px;
+            color: #223028;
+        }
+
+        .step-card p {
+            font-size: 13.5px;
+            line-height: 1.55;
+            color: #6c766e;
+            margin: 0;
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 30px; }
+            .steps { grid-template-columns: 1fr; }
+            .stats { flex-direction: column; }
+            .stat { border-right: none; border-bottom: 1px solid #e3ddca; }
+            .stat:last-child { border-bottom: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="banner">
+        <div class="banner-text">
+            <h2>Smart Lender</h2>
+            <span>Loan Eligibility Prediction</span>
+        </div>
+    </div>
+
+    <div class="hero">
+        <span class="eyebrow">Machine Learning · Instant Decisioning</span>
+        <h1>Know your loan eligibility<br><em>before</em> you apply.</h1>
+        <p>
+            Smart Lender analyzes income, credit history, education, and property
+            details to instantly predict whether a loan application is likely to be
+            approved — helping applicants and credit officers make faster,
+            data-driven decisions.
+        </p>
+        <a href="{{ url_for('predict') }}" class="predict-btn">Check Your Eligibility →</a>
+    </div>
+
+    <div class="section-title">How It Works</div>
+    <div class="steps">
+        <div class="step-card">
+            <div class="step-num">01</div>
+            <h3>Enter Applicant Details</h3>
+            <p>Provide income, credit history, education, and property information through a simple form.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-num">02</div>
+            <h3>Model Evaluates Risk</h3>
+            <p>A trained classification model scores the application against patterns learned from historical loan data.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-num">03</div>
+            <h3>Instant Result</h3>
+            <p>Get an immediate Approved / Not Approved prediction, along with the model's confidence.</p>
+        </div>
+    </div>
+
+    <script>
+        const cards = document.querySelectorAll('.step-card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('in-view'), i * 120);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        cards.forEach(card => observer.observe(card));
+    </script>
+
+</body>
+
+</html>
